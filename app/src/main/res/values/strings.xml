@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Scrabble Counter</string>
+    <string name="minus">-</string>
+    <string name="plus">+</string>
+    <string name="zero">0</string>
+    <string name="bingo">Bingo</string>
+    <string name="triple_word_score">Triple word score</string>
+    <string name="double_word_score">Double word score</string>
+    <string name="add_score_to">Add score to:</string>
+    <string name="choose_your_language">Choose your language</string>
+    <string name="score">Score</string>
+    <string name="new_game">New game</string>
+    <string name="_0">0</string>
+
+    <!--Language array-->
+    <string-array name="language_array">
+        <item></item>
+        <item>Nederlands</item>
+        <item>Français</item>
+        <item>English</item>
+    </string-array>
+</resources>
