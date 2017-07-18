@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,8 +23,8 @@ public class MainActivity extends AppCompatActivity {
     private int tripleWord = 0;
     private int bonusWord = 0;
 
-    private ArrayList<Integer> spelers = new ArrayList<>(4);
-    private ArrayList<Character> alphabetList = new ArrayList<>(26);
+    private ArrayList<Integer> playerScore = new ArrayList<>(4);
+    private ArrayList<Character> alphabetList = new ArrayList<>(Arrays.asList(new Character[]{'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'}));
     private ArrayList<Integer> scoreList;
     private ArrayList<Integer> scoreNL = new ArrayList<>(26);
     private ArrayList<Integer> scoreFR = new ArrayList<>(26);
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private char[] letters;
     private String word;
     private int finalScore;
+    private boolean click = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
         players = getIntent().getIntExtra("players", 1);
 
         for (int i = 0; i < players; i++) {
-            spelers.add(0);
+            playerScore.add(0);
         }
         switch (language) {
             case "Nederlands":
@@ -138,32 +140,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void fillLists() {
-        alphabetList.add('a');
-        alphabetList.add('b');
-        alphabetList.add('c');
-        alphabetList.add('d');
-        alphabetList.add('e');
-        alphabetList.add('f');
-        alphabetList.add('g');
-        alphabetList.add('h');
-        alphabetList.add('i');
-        alphabetList.add('j');
-        alphabetList.add('k');
-        alphabetList.add('l');
-        alphabetList.add('m');
-        alphabetList.add('n');
-        alphabetList.add('o');
-        alphabetList.add('p');
-        alphabetList.add('q');
-        alphabetList.add('r');
-        alphabetList.add('s');
-        alphabetList.add('t');
-        alphabetList.add('u');
-        alphabetList.add('v');
-        alphabetList.add('w');
-        alphabetList.add('x');
-        alphabetList.add('y');
-        alphabetList.add('z');
 
         scoreNL.add(1);
         scoreNL.add(3);
@@ -262,6 +238,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void submitWord(View view) {
+        click = true;
         EditText wordField = (EditText) findViewById(R.id.word_field);
         Editable wordEditable = wordField.getText();
         word = wordEditable.toString();
@@ -311,8 +288,8 @@ public class MainActivity extends AppCompatActivity {
             (linearLayout).removeAllViews();
         showWord();
         linearLayout.setVisibility(View.VISIBLE);
-        ((Button) findViewById(R.id.calculate)).setVisibility(View.GONE);
-        ((LinearLayout) findViewById(R.id.wordValues)).setVisibility(View.GONE);
+        (findViewById(R.id.calculate)).setVisibility(View.GONE);
+        (findViewById(R.id.wordValues)).setVisibility(View.GONE);
         score = calculateSingleScore();
         calculate(view);
     }
@@ -437,7 +414,7 @@ public class MainActivity extends AppCompatActivity {
                 linearLayout.setVisibility(View.GONE);
                 Button button2 = (Button) findViewById(R.id.calculate);
                 button2.setVisibility(View.GONE);
-                ((Button) findViewById(R.id.ok)).setVisibility(View.GONE);
+                (findViewById(R.id.ok)).setVisibility(View.GONE);
                 linearLayout = (LinearLayout) findViewById(R.id.wordValues);
                 linearLayout.setVisibility(View.VISIBLE);
                 button2 = (Button) findViewById(R.id.calculate);
@@ -478,7 +455,6 @@ public class MainActivity extends AppCompatActivity {
         displayDoublePoints(doubleWord);
     }
 
-
     // Triple
     public void triplePlus(View view) {
         // Not more than 10 (if more than 10 --> just return)
@@ -515,7 +491,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         bonusWord += 1;
-        ((Button) findViewById(R.id.bonusPlus)).setClickable(false);
+        (findViewById(R.id.bonusPlus)).setClickable(false);
         displayBonusPoints(bonusWord);
     }
 
@@ -536,65 +512,136 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void addScoreToPlayer1(View view) {
-        spelers.set(0, spelers.get(0) + finalScore);
+        playerScore.set(0, playerScore.get(0) + finalScore);
 
-        ((TextView) findViewById(R.id.scorePlayer1)).setText(spelers.get(0).toString());
+        ((TextView) findViewById(R.id.scorePlayer1)).setText(playerScore.get(0).toString());
         finalScore = 0;
         ((TextView) findViewById(R.id.score)).setText(String.valueOf(0));
-        ((LinearLayout) findViewById(R.id.wordValues)).setVisibility(View.GONE);
-        ((LinearLayout) findViewById(R.id.letterScore)).setVisibility(View.GONE);
-        ((Button) findViewById(R.id.calculate)).setVisibility(View.GONE);
-        ((Button) findViewById(R.id.ok)).setVisibility(View.GONE);
+        (findViewById(R.id.wordValues)).setVisibility(View.GONE);
+        (findViewById(R.id.letterScore)).setVisibility(View.GONE);
+        (findViewById(R.id.calculate)).setVisibility(View.GONE);
+        (findViewById(R.id.ok)).setVisibility(View.GONE);
         ((EditText) findViewById(R.id.word_field)).getText().clear();
     }
 
     public void addScoreToPlayer2(View view) {
-        spelers.set(1, spelers.get(1) + finalScore);
+        playerScore.set(1, playerScore.get(1) + finalScore);
 
-        ((TextView) findViewById(R.id.scorePlayer2)).setText(spelers.get(1).toString());
+        ((TextView) findViewById(R.id.scorePlayer2)).setText(playerScore.get(1).toString());
         finalScore = 0;
         ((TextView) findViewById(R.id.score)).setText(String.valueOf(0));
-        ((LinearLayout) findViewById(R.id.wordValues)).setVisibility(View.GONE);
-        ((LinearLayout) findViewById(R.id.letterScore)).setVisibility(View.GONE);
-        ((Button) findViewById(R.id.calculate)).setVisibility(View.GONE);
-        ((Button) findViewById(R.id.ok)).setVisibility(View.GONE);
+        (findViewById(R.id.wordValues)).setVisibility(View.GONE);
+        (findViewById(R.id.letterScore)).setVisibility(View.GONE);
+        (findViewById(R.id.calculate)).setVisibility(View.GONE);
+        (findViewById(R.id.ok)).setVisibility(View.GONE);
         ((EditText) findViewById(R.id.word_field)).getText().clear();
     }
 
     public void addScoreToPlayer3(View view) {
-        spelers.set(2, spelers.get(2) + finalScore);
+        playerScore.set(2, playerScore.get(2) + finalScore);
 
-        ((TextView) findViewById(R.id.scorePlayer3)).setText(spelers.get(2).toString());
+        ((TextView) findViewById(R.id.scorePlayer3)).setText(playerScore.get(2).toString());
         finalScore = 0;
         ((TextView) findViewById(R.id.score)).setText(String.valueOf(0));
-        ((LinearLayout) findViewById(R.id.wordValues)).setVisibility(View.GONE);
-        ((LinearLayout) findViewById(R.id.letterScore)).setVisibility(View.GONE);
-        ((Button) findViewById(R.id.calculate)).setVisibility(View.GONE);
-        ((Button) findViewById(R.id.ok)).setVisibility(View.GONE);
+        (findViewById(R.id.wordValues)).setVisibility(View.GONE);
+        (findViewById(R.id.letterScore)).setVisibility(View.GONE);
+        (findViewById(R.id.calculate)).setVisibility(View.GONE);
+        (findViewById(R.id.ok)).setVisibility(View.GONE);
         ((EditText) findViewById(R.id.word_field)).getText().clear();
     }
 
     public void addScoreToPlayer4(View view) {
-        spelers.set(3, spelers.get(3) + finalScore);
+        playerScore.set(3, playerScore.get(3) + finalScore);
 
-        ((TextView) findViewById(R.id.scorePlayer4)).setText(spelers.get(3).toString());
+        ((TextView) findViewById(R.id.scorePlayer4)).setText(playerScore.get(3).toString());
         finalScore = 0;
         ((TextView) findViewById(R.id.score)).setText(String.valueOf(0));
-        ((LinearLayout) findViewById(R.id.wordValues)).setVisibility(View.GONE);
-        ((LinearLayout) findViewById(R.id.letterScore)).setVisibility(View.GONE);
-        ((Button) findViewById(R.id.calculate)).setVisibility(View.GONE);
-        ((Button) findViewById(R.id.ok)).setVisibility(View.GONE);
+        (findViewById(R.id.wordValues)).setVisibility(View.GONE);
+        (findViewById(R.id.letterScore)).setVisibility(View.GONE);
+        (findViewById(R.id.calculate)).setVisibility(View.GONE);
+        (findViewById(R.id.ok)).setVisibility(View.GONE);
         ((EditText) findViewById(R.id.word_field)).getText().clear();
     }
 
     public void endGame(View view) {
         Intent intent = new Intent(MainActivity.this, ScoreActivity.class);
         intent.putExtra("language", language);
-        intent.putExtra("spelers", spelers);
+        intent.putExtra("playerScore", playerScore);
         intent.putExtra("players", players);
         startActivity(intent);
-
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        //  variables
+        savedInstanceState.putString("language", language);
+        savedInstanceState.putIntegerArrayList("playerScore", playerScore);
+        savedInstanceState.putInt("players", players);
+        savedInstanceState.putInt("doubleWord", doubleWord);
+        savedInstanceState.putInt("tripleWord", tripleWord);
+        savedInstanceState.putInt("bonusWord", bonusWord);
+        savedInstanceState.putIntegerArrayList("scoreList", scoreList);
+        savedInstanceState.putIntegerArrayList("scoreNL", scoreNL);
+        savedInstanceState.putIntegerArrayList("scoreFR", scoreFR);
+        savedInstanceState.putIntegerArrayList("scoreEN", scoreFR);
+        savedInstanceState.putIntegerArrayList("score", score);
 
+        savedInstanceState.putCharArray("letters", letters);
+        savedInstanceState.putString("word", word);
+        savedInstanceState.putInt("finalScore", finalScore);
+        savedInstanceState.putBoolean("click", click);
+
+        // Always call the superclass so it can save the view hierarchy state
+        super.onSaveInstanceState(savedInstanceState);
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        // Restore state from saved instance
+        super.onRestoreInstanceState(savedInstanceState);
+
+        //  variables
+        language = savedInstanceState.getString("language");
+        playerScore = savedInstanceState.getIntegerArrayList("playerScore");
+        players = savedInstanceState.getInt("players");
+
+        doubleWord = savedInstanceState.getInt("doubleWord");
+        tripleWord = savedInstanceState.getInt("tripleWord");
+        bonusWord = savedInstanceState.getInt("bonusWord");
+        scoreList = savedInstanceState.getIntegerArrayList("scoreList");
+        scoreNL = savedInstanceState.getIntegerArrayList("scoreNL");
+        scoreFR = savedInstanceState.getIntegerArrayList("scoreFR");
+        scoreEN = savedInstanceState.getIntegerArrayList("scoreEN");
+        score = savedInstanceState.getIntegerArrayList("score");
+
+        letters = savedInstanceState.getCharArray("letters");
+        word = savedInstanceState.getString("word");
+        finalScore = savedInstanceState.getInt("finalScore");
+        click = savedInstanceState.getBoolean("click");
+
+        fillTextView();
+    }
+
+    private void fillTextView() {
+        for (int i = 0; i < players; i++) {
+            switch (i) {
+                case 0:
+                    ((TextView) findViewById(R.id.scorePlayer1)).setText(playerScore.get(i).toString());
+                    break;
+                case 1:
+                    ((TextView) findViewById(R.id.scorePlayer2)).setText(playerScore.get(i).toString());
+                    break;
+                case 2:
+                    ((TextView) findViewById(R.id.scorePlayer3)).setText(playerScore.get(i).toString());
+                    break;
+                case 3:
+                    ((TextView) findViewById(R.id.scorePlayer4)).setText(playerScore.get(i).toString());
+                    break;
+            }
+        }
+        ((TextView) findViewById(R.id.score)).setText(String.valueOf(finalScore));
+        if (click) {
+            showWord();
+        }
+    }
 }

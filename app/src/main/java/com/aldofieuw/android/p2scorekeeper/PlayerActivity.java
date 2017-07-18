@@ -7,13 +7,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 public class PlayerActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private String language;
+    private int players;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +35,7 @@ public class PlayerActivity extends AppCompatActivity implements AdapterView.OnI
             public void onClick(View v) {
                 intent.putExtra("language", language);
                 intent.putExtra("players", 1);
+                players = 1;
                 startActivity(intent);
             }
         });
@@ -42,6 +43,7 @@ public class PlayerActivity extends AppCompatActivity implements AdapterView.OnI
             public void onClick(View v) {
                 intent.putExtra("language", language);
                 intent.putExtra("players", 2);
+                players = 2;
                 startActivity(intent);
             }
         });
@@ -49,6 +51,7 @@ public class PlayerActivity extends AppCompatActivity implements AdapterView.OnI
             public void onClick(View v) {
                 intent.putExtra("language", language);
                 intent.putExtra("players", 3);
+                players = 3;
                 startActivity(intent);
             }
         });
@@ -56,6 +59,7 @@ public class PlayerActivity extends AppCompatActivity implements AdapterView.OnI
             public void onClick(View v) {
                 intent.putExtra("language", language);
                 intent.putExtra("players", 4);
+                players = 4;
                 startActivity(intent);
             }
         });
@@ -97,7 +101,7 @@ public class PlayerActivity extends AppCompatActivity implements AdapterView.OnI
                 chooseLanguage.setText("Choose your language");
                 break;
         }
-        ((LinearLayout) findViewById(R.id.players_buttons)).setVisibility(View.VISIBLE);
+        (findViewById(R.id.players_buttons)).setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -107,13 +111,17 @@ public class PlayerActivity extends AppCompatActivity implements AdapterView.OnI
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
-        super.onSaveInstanceState(savedInstanceState);
         savedInstanceState.putString("language", language);
+        savedInstanceState.putInt("players", players);
+
+        super.onSaveInstanceState(savedInstanceState);
     }
 
     @Override
     public void onRestoreInstanceState(Bundle savedInstanceState) {
+        language = savedInstanceState.getString("language");
+        players = savedInstanceState.getInt("players");
+
         super.onRestoreInstanceState(savedInstanceState);
-        language = savedInstanceState.getString("laguage");
     }
 }
