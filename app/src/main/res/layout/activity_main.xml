@@ -261,13 +261,14 @@
                 android:textAlignment="center"
                 android:theme="@style/AppTheme.Button"
                 android:visibility="gone" />
+
             <TextView
                 android:id="@+id/score"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="0"
                 android:textAlignment="center"
-                android:textSize="64sp" />
+                android:textSize="64sp"
+                tools:text="0" />
 
         </LinearLayout>
 
@@ -372,7 +373,6 @@
                 android:textAlignment="center"
                 android:textSize="24sp"
                 android:visibility="gone" />
-            <!--</LinearLayout>-->
 
         </LinearLayout>
 

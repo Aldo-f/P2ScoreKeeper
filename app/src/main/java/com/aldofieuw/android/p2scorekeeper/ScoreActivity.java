@@ -73,7 +73,7 @@ public class ScoreActivity extends AppCompatActivity {
 
     private void fillAttributes() {
         language = getIntent().getStringExtra("language");
-        score = getIntent().getIntegerArrayListExtra("spelers");
+        score = getIntent().getIntegerArrayListExtra("playerScore");
         players = getIntent().getIntExtra("players", 1);
         for (int i = 1; i < players + 1; i++) {
             switch (language) {

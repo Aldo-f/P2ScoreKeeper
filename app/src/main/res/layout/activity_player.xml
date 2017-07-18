@@ -1,77 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.aldofieuw.android.p2scorekeeper.PlayerActivity">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="16dp"
+        android:orientation="vertical"
+        android:paddingBottom="16dp"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
-        android:paddingBottom="16dp"
-        android:orientation="vertical">
+        android:paddingTop="16dp">
+
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@mipmap/logo"
             android:scaleType="fitCenter"
-            />
+            android:src="@mipmap/logo" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <TextView
+                android:id="@+id/chooseLanguage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAlignment="center"
                 android:text="@string/choose_your_language"
-                android:id="@+id/chooseLanguage"/>
+                android:textAlignment="center" />
+
             <Spinner
                 android:id="@+id/language_spinner"
                 android:layout_width="fill_parent"
-                android:paddingTop="20dp"
+                android:layout_height="wrap_content"
+                android:paddingBottom="16dp"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
-                android:paddingBottom="16dp"
-                android:layout_height="wrap_content" />
+                android:paddingTop="20dp" />
 
         </LinearLayout>
+
         <TextView
+            android:id="@+id/players"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="20dp"
+            android:paddingBottom="16dp"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
-            android:paddingBottom="16dp"
-            android:textAlignment="center"
-            android:id="@+id/players"/>
+            android:paddingTop="20dp"
+            android:textAlignment="center" />
+
         <LinearLayout
+            android:id="@+id/players_buttons"
+            style="?android:attr/buttonBarStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:id="@+id/players_buttons"
-            android:visibility="gone"
-            style="?android:attr/buttonBarStyle"
-            >
+            android:visibility="gone">
+
             <Button
                 android:id="@+id/player1"
+                style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="?android:attr/buttonBarButtonStyle"
                 android:layout_weight="1"
                 android:tag="1"
-                android:text="1"/>
+                android:text="1" />
+
             <Button
                 android:id="@+id/player2"
+                style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="?android:attr/buttonBarButtonStyle"
                 android:layout_weight="1"
                 android:tag="2"
-                android:text="2"/>
+                android:text="2" />
+
             <Button
                 android:id="@+id/player3"
                 style="?android:attr/buttonBarButtonStyle"
@@ -80,6 +87,7 @@
                 android:layout_weight="1"
                 android:tag="3"
                 android:text="3" />
+
             <Button
                 android:id="@+id/player4"
                 style="?android:attr/buttonBarButtonStyle"
